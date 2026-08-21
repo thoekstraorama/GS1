@@ -1,0 +1,71 @@
+@ApiService_HostAddress = http://localhost:5485
+
+# Dit is een valide request die een '200' teruggeeft. 
+# Voer hiervoor eerst de create uit en kopieer de versionId.
+# Voer deze twee keer uit om een '409' terug te krijgen.
+PUT {{ApiService_HostAddress}}/api/items/NEST0000000001
+X-COMPANY-ID: 1
+Accept: application/json
+Content-Type: application/json
+{
+  "name": "KitKat Chunky White",
+  "versionId": "AAAAAAAAXcw="
+}
+
+###
+
+# Dit is een invalide request die een '400' teruggeeft, omdat de versionId niet gevuld is.
+PUT {{ApiService_HostAddress}}/api/items/NEST0000000001
+X-COMPANY-ID: 1
+Accept: application/json
+Content-Type: application/json
+{
+  "name": "Kitkat"
+}
+
+###
+
+# Dit is een niet geauthenticeerd request die een '403' teruggeeft.
+PUT {{ApiService_HostAddress}}/api/items/NEST0000000001
+Accept: application/json
+Content-Type: application/json
+{
+  "name": "Kitkat",
+  "gtin": "NEST0000000001"
+}
+
+###
+
+# Dit is een geauthenticeerd request die een '403' terug geeft omdat de company id niet bestaat.
+PUT {{ApiService_HostAddress}}/api/items/NEST0000000001
+X-COMPANY-ID: 10
+Accept: application/json
+Content-Type: application/json
+{
+  "name": "Kitkat",
+  "versionId": "AAAAAAAAXcw="
+}
+
+### 
+
+# Dit is een geauthenticeerd request die een '403' teruggeeft omdat de company id niet overeen komt met die van het item.
+PUT {{ApiService_HostAddress}}/api/items/NEST0000000001
+X-COMPANY-ID: 2
+Accept: application/json
+Content-Type: application/json
+{
+  "name": "Kitkat",
+  "versionId": "AAAAAAAAXcw="
+}
+
+###
+
+# Dit is een request die een '404' teruggeeft omdat het item niet bestaat.
+PUT {{ApiService_HostAddress}}/api/items/NEST0000000002
+X-COMPANY-ID: 1
+Accept: application/json
+Content-Type: application/json
+{
+  "name": "Kitkat",
+  "versionId": "AAAAAAAAXcw="
+}

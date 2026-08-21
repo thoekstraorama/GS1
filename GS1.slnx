@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="README" />
+  </Folder>
+  <Project Path="GS1.ApiService/GS1.ApiService.csproj" />
+  <Project Path="GS1.AppHost/GS1.AppHost.csproj" />
+  <Project Path="GS1.Database/GS1.Database.csproj" Id="d432dd0e-09e5-4415-aac8-bc1d54c7bb1a" />
+  <Project Path="GS1.ServiceDefaults/GS1.ServiceDefaults.csproj" />
+</Solution>

@@ -1,0 +1,59 @@
+@ApiService_HostAddress = http://localhost:5485
+
+# Dit is een valide request die een '201' teruggeeft. 
+# Voer deze twee keer uit om een '409' terug te krijgen.
+POST {{ApiService_HostAddress}}/api/items
+X-COMPANY-ID: 1
+Accept: application/json
+Content-Type: application/json
+{
+  "name": "Kitkat",
+  "gtin": "NEST0000000001"
+}
+
+###
+
+# Dit is een invalide request die een '400' teruggeeft, omdat de GTIN een invalide formaat heeft.
+POST {{ApiService_HostAddress}}/api/items
+X-COMPANY-ID: 1
+Accept: application/json
+Content-Type: application/json
+{
+  "name": "Kitkat",
+  "gtin": "INVALIDGTIN"
+}
+
+###
+
+# Dit is een niet geauthenticeerd request die een '403' teruggeeft.
+POST {{ApiService_HostAddress}}/api/items
+Accept: application/json
+Content-Type: application/json
+{
+  "name": "Kitkat",
+  "gtin": "NEST0000000001"
+}
+
+###
+
+# Dit is een geauthenticeerd request die een '403' terug geeft omdat de company id niet bestaat.
+POST {{ApiService_HostAddress}}/api/items
+X-COMPANY-ID: 10
+Accept: application/json
+Content-Type: application/json
+{
+  "name": "Kitkat",
+  "gtin": "NEST0000000001"
+}
+
+### 
+
+# Dit is een geauthenticeerd request die een '403' teruggeeft omdat de company code in de GTIN niet klopt.
+POST {{ApiService_HostAddress}}/api/items
+X-COMPANY-ID: 1
+Accept: application/json
+Content-Type: application/json
+{
+  "name": "Kitkat",
+  "gtin": "MEUN0000000001"
+}

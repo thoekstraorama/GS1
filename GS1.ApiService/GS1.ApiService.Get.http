@@ -1,0 +1,10 @@
+@ApiService_HostAddress = http://localhost:5485
+
+# Dit is een valide request die een '200' teruggeeft. Voer hiervoor eerst de create uit.
+GET {{ApiService_HostAddress}}/api/items/NEST0000000001
+Accept: application/json
+###
+
+# Dit is een valide request die een '404' teruggeeft, omdat het item niet bestaat.
+GET {{ApiService_HostAddress}}/api/items/NIETBESTAAND
+Accept: application/json
